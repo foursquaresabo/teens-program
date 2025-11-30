@@ -49,7 +49,6 @@ const Admin = ({ session, user }) => {
 
         const role = user?.user_metadata?.role;
         if (role !== 'admin') {
-            console.log('User is not admin, redirecting...');
             navigate('/admin-login');
             return;
         }
@@ -81,14 +80,12 @@ const Admin = ({ session, user }) => {
                 setRegistrations(data || []);
             }
         } catch (error) {
-            console.error('Error fetching data:', error);
             alert('Error fetching data. Please check your authentication.');
         } finally {
             setLoading(false);
         }
     };
 
-    // Event Management Functions
     const handleEventSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -114,7 +111,6 @@ const Admin = ({ session, user }) => {
             setShowEventForm(false);
             alert(editingEvent ? 'Event updated successfully!' : 'Event created successfully!');
         } catch (error) {
-            console.error('Error saving event:', error);
             alert('Error saving event: ' + error.message);
         } finally {
             setLoading(false);
@@ -168,13 +164,11 @@ const Admin = ({ session, user }) => {
                 fetchData();
                 alert('Event deleted successfully!');
             } catch (error) {
-                console.error('Error deleting event:', error);
                 alert('Error deleting event: ' + error.message);
             }
         }
     };
 
-    // Registration Management Functions
     const handleRegistrationSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -191,7 +185,6 @@ const Admin = ({ session, user }) => {
             setShowRegistrationForm(false);
             alert('Registration created successfully!');
         } catch (error) {
-            console.error('Error creating registration:', error);
             alert('Error creating registration: ' + error.message);
         } finally {
             setLoading(false);
@@ -222,7 +215,6 @@ const Admin = ({ session, user }) => {
                 fetchData();
                 alert('Registration deleted successfully!');
             } catch (error) {
-                console.error('Error deleting registration:', error);
                 alert('Error deleting registration: ' + error.message);
             }
         }

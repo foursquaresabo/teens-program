@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Events from './pages/Events';
@@ -14,24 +14,16 @@ function App() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Get initial session
         supabase.auth.getSession().then(({ data: { session } }) => {
-            console.log('Initial session:', session);
             setSession(session);
-
             if (session) {
                 setUser(session.user);
             }
             setLoading(false);
         });
 
-        // Listen for auth changes
-        const {
-            data: { subscription },
-        } = supabase.auth.onAuthStateChange(async (event, session) => {
-            console.log('Auth state changed:', event, session);
+        const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
             setSession(session);
-
             if (session) {
                 setUser(session.user);
             } else {
@@ -59,20 +51,12 @@ function App() {
             <div className="min-h-screen bg-gray-50">
                 <Navbar session={session} user={user} />
                 <Routes>
-                    {/* Public routes - accessible to everyone */}
                     <Route path="/" element={<Home />} />
                     <Route path="/events" element={<Events />} />
                     <Route path="/register/:eventId" element={<Registration />} />
-
-                    {/* Admin routes */}
-                    <Route
-                        path="/admin-login"
-                        element={<AdminLogin />}
-                    />
-                    <Route
-                        path="/admin"
-                        element={<Admin session={session} user={user} />}
-                    />
+                    <Route path="/admin-login" element={<AdminLogin />} />
+                    <Route path="/admin" element={<Admin session={session} user={user} />} />
+                    <Route path="*" element={<Home />} />
                 </Routes>
             </div>
         </Router>
