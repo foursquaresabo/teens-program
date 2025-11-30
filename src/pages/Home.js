@@ -77,6 +77,34 @@ const Home = () => {
                 </div>
             </div>
 
+            {/* Upcoming Events Section */}
+            {upcomingEvents.length > 0 && (
+                <div className="mb-12">
+                    <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Upcoming Events</h2>
+                    <div className="grid md:grid-cols-3 gap-6">
+                        {upcomingEvents.map(event => (
+                            <div key={event.id} className="bg-white rounded-lg shadow-md p-6 border border-green-200 hover:shadow-lg transition duration-200">
+                                <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold inline-block mb-3">
+                                    Coming Soon
+                                </div>
+                                <h3 className="text-xl font-semibold text-gray-800 mb-2">{event.title}</h3>
+                                <p className="text-gray-600 mb-2">{event.speaker}</p>
+                                <p className="text-sm text-gray-500 mb-3">
+                                    {new Date(event.event_date).toLocaleDateString()} • {event.event_time}
+                                </p>
+                                <p className="text-gray-700 text-sm mb-4 line-clamp-2">{event.description.substring(0, 100)}...</p>
+                                <Link
+                                    to={`/events`}
+                                    className="text-green-600 hover:text-green-700 font-semibold text-sm"
+                                >
+                                    Learn More →
+                                </Link>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
+
             {/* Current Event Section */}
             <div className="max-w-6xl mx-auto">
                 {currentEvent ? (
@@ -150,33 +178,7 @@ const Home = () => {
                     </div>
                 )}
 
-                {/* Upcoming Events Section */}
-                {upcomingEvents.length > 0 && (
-                    <div className="mb-12">
-                        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Upcoming Events</h2>
-                        <div className="grid md:grid-cols-3 gap-6">
-                            {upcomingEvents.map(event => (
-                                <div key={event.id} className="bg-white rounded-lg shadow-md p-6 border border-green-200 hover:shadow-lg transition duration-200">
-                                    <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold inline-block mb-3">
-                                        Coming Soon
-                                    </div>
-                                    <h3 className="text-xl font-semibold text-gray-800 mb-2">{event.title}</h3>
-                                    <p className="text-gray-600 mb-2">{event.speaker}</p>
-                                    <p className="text-sm text-gray-500 mb-3">
-                                        {new Date(event.event_date).toLocaleDateString()} • {event.event_time}
-                                    </p>
-                                    <p className="text-gray-700 text-sm mb-4 line-clamp-2">{event.description.substring(0, 100)}...</p>
-                                    <Link
-                                        to={`/events`}
-                                        className="text-green-600 hover:text-green-700 font-semibold text-sm"
-                                    >
-                                        Learn More →
-                                    </Link>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                )}
+
 
                 {/* About Section */}
                 <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-8 text-white mb-12">
